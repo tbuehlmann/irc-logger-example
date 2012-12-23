@@ -1,0 +1,9 @@
+:javascript
+  var event_source = new EventSource('/stream/#{params[:channel]}');
+  event_source.onmessage = function(e) {
+    $('.messages').append("<div class='message'>" + e.data + "</div>")
+  };
+%h1= params[:channel]
+.messages
+  - @messages.each do |message|
+    .message= "#{message.timestamp.strftime('%H:%M:%S')} #{message.body}"
